@@ -1,0 +1,10 @@
+{
+  "name": "nernier-suivi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nernier — Suivi projet (site Netlify protégé par identifiant et code d'accès)",
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.4"
+  }
+}

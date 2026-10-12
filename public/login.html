@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Nernier — Connexion</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FFC72C'/%3E%3Cpath d='M9 24V8h3.2l7.6 10.6V8H23v16h-3.2L12.2 13.4V24z' fill='%23161614'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700;800&display=swap">
+<style>
+:root{--bg:#F3F3EF;--surface:#FFFFFF;--ink:#161614;--muted:#6D6B63;--line:#E0DED5;--brand:#FFC72C;--crit:#BE3329;--crit-soft:#F8E0DC;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-head:"Barlow Semi Condensed","Barlow",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#11110F;--surface:#1A1A17;--ink:#F2F1EB;--muted:#9A978D;--line:#34332D;--crit:#F27D70;--crit-soft:#3E1C18;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11110F;--surface:#1A1A17;--ink:#F2F1EB;--muted:#9A978D;--line:#34332D;--crit:#F27D70;--crit-soft:#3E1C18;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.band{background:var(--brand);color:#161614}
+.band .in{max-width:1320px;margin:0 auto;padding:18px 16px 30px}
+.mark{display:inline-block;font-family:var(--f-head);font-weight:800;letter-spacing:.22em;font-size:14px;background:#161614;color:var(--brand);padding:3px 9px 2px;border-radius:3px}
+.crumb{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;flex-wrap:wrap}
+h1{font-family:var(--f-head);font-size:44px;font-weight:800;line-height:1;letter-spacing:-.01em;margin:22px 0 6px}
+.band p{margin:0;font-weight:500}
+main{max-width:1320px;margin:0 auto;padding:0 16px 40px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 1px 2px rgba(22,22,20,.05),0 8px 24px rgba(22,22,20,.07);max-width:420px;margin-top:-14px;padding:24px}
+.card h2{font-family:var(--f-head);font-size:22px;font-weight:800;margin:0 0 4px}
+.card .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+label{display:block;font-family:var(--f-head);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+input{display:block;width:100%;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:10px 12px;margin:0 0 14px;font-size:16px}
+input:focus{outline:2px solid var(--ink);outline-offset:1px;border-color:var(--ink)}
+button{width:100%;font:inherit;font-weight:700;font-size:16px;border:0;border-radius:7px;padding:11px 14px;background:#161614;color:#fff;cursor:pointer}
+button:hover{background:#000}
+button:disabled{opacity:.6;cursor:default}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) button{background:var(--brand);color:#161614}}
+.err{background:var(--crit-soft);color:var(--crit);border-radius:7px;padding:9px 12px;font-weight:600;margin:0 0 14px}
+.foot{color:var(--muted);font-size:13px;margin-top:16px;max-width:420px}
+@media (max-width:560px){h1{font-size:34px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<header class="band"><div class="in">
+  <div class="crumb"><span class="mark">YELLOWSTONE</span><span>YS2 — Château de Nernier</span></div>
+  <h1>Domaine du Léman</h1>
+  <p>Suivi projet — accès réservé à l'équipe</p>
+</div></header>
+<main>
+  <form class="card" id="f" autocomplete="on" novalidate>
+    <h2>Connexion</h2>
+    <p class="sub">Saisis l'identifiant et le code d'accès qui t'ont été communiqués.</p>
+    <div class="err" id="err" role="alert" hidden></div>
+    <label for="id">Identifiant</label>
+    <input id="id" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+    <label for="code">Code d'accès</label>
+    <input id="code" name="password" type="password" autocomplete="current-password" required>
+    <button id="go" type="submit">Se connecter</button>
+  </form>
+  <p class="foot">La session reste ouverte 30 jours sur cet appareil. En cas d'oubli du code, contacte Stanislas Lethu.</p>
+</main>
+<script>
+(() => {
+  const f = document.getElementById('f'), err = document.getElementById('err'), go = document.getElementById('go');
+  const q = new URLSearchParams(location.search).get('r') || ('/' + (location.hash || ''));
+  const dest = /^\/(?![\/\\])/.test(q) && !/[\\\s]/.test(q) && !q.startsWith('/login') ? q : '/';
+  document.getElementById('id').focus();
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); err.hidden = true;
+    const id = document.getElementById('id').value.trim(), code = document.getElementById('code').value;
+    if (!id || !code) { err.textContent = "Renseigne ton identifiant et ton code d'accès."; err.hidden = false; return; }
+    go.disabled = true; go.textContent = 'Connexion…';
+    try {
+      const r = await fetch('/api/login', {method: 'POST', headers: {'content-type': 'application/json'}, credentials: 'same-origin', body: JSON.stringify({id, code})});
+      const j = await r.json().catch(() => ({}));
+      if (r.ok) { location.replace(dest); return; }
+      err.textContent = j.error || 'Connexion impossible.';
+    } catch (x) { err.textContent = 'Connexion impossible : vérifie ta connexion internet.'; }
+    err.hidden = false; go.disabled = false; go.textContent = 'Se connecter';
+    document.getElementById('code').select();
+  });
+})();
+</script>
+</body>
+</html>

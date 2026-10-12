@@ -1,0 +1,31 @@
+# Nernier — Suivi projet : configuration Netlify
+# Le site est publié depuis le dossier « public » ; l'API (connexion, données) est dans netlify/functions.
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/login"
+  to = "/login.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/nernier-runtime.js"
+  [headers.values]
+    Cache-Control = "no-cache"
